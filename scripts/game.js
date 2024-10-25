@@ -9,8 +9,8 @@ window.requestAnimFrame = (function(){
 			};
 })();
 
-var width = 398;
-var height = 177;
+var gameWidth = 800;
+var gameHeight = 900;
 
 var images = [];
 var doneImages = 0;
@@ -31,6 +31,20 @@ var key = {
 	s: 83,
 	d: 68,
 }
+
+var mouseX = 0;
+var mouseY = 0;
+
+document.addEventListener('mousemove', function(event) {
+  mouseX = event.clientX;
+  mouseY = event.clientY;
+  if( mouseX <= gameWidth && mouseY <= gameHeight ){
+  	document.body.style.cursor = "none";
+  }else{
+  	document.body.style.cursor = "default";
+  }
+
+});
 
 function loop(){
 	
@@ -63,13 +77,17 @@ function update(){
 }
 
 function render(){
+	//draw background beach image
 	gameCanvas.drawImage(images[0], 0, 0);
+
+	//draw hand 
+	gameCanvas.drawImage(images[1], mouseX, mouseY)
 }
 
 gameCanvas.font = "bold 50px monaco";
 gameCanvas.fillStyle = "white";
-gameCanvas.fillText("loading",width/2-100,height/2);
+gameCanvas.fillText("loading",gameWidth/2-100,gameHeight/2);
 
-loadImages(["images/beach.png"]);
+loadImages(["images/beach.png", "images/open-hand.png"]);
 
 checkImages();
