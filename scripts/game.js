@@ -68,17 +68,29 @@ $(document).keyup(function(e){
 
 
 function init(){
+	turtles = [];
 	loop();
 	// DON'T PUT ANYTHING AFTER THE GAME LOOP STARTS!
 }
 
 function update(){
-
+	if ( Math.random() > 0.98 ){
+		turtles.push(new Turtle(200 * Math.random(),800));
+	}
+	for (const turtle of turtles){
+		turtle.update();
+	}
 }
 
 function render(){
+
+
 	//draw background beach image
 	gameCanvas.drawImage(images[0], 0, 0);
+	
+	for (var turtle of turtles){
+		turtle.draw();
+	}
 
 	//draw hand 
 	gameCanvas.drawImage(images[1], mouseX, mouseY)
@@ -88,6 +100,6 @@ gameCanvas.font = "bold 50px monaco";
 gameCanvas.fillStyle = "white";
 gameCanvas.fillText("loading",gameWidth/2-100,gameHeight/2);
 
-loadImages(["images/beach.png", "images/open-hand.png"]);
+loadImages(["images/beach.png", "images/open-hand.png", "images/turtle.gif"]);
 
 checkImages();
